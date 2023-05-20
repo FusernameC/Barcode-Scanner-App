@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DATAMATRIX">
+    <ImageView
+        android:id="@+id/ImageViewId2"
+        android:layout_width="270dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:contentDescription="QR Code" />
+
+    <EditText
+        android:id="@+id/idEdt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ImageViewId2"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:hint="Enter your info"
+        android:inputType="text"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/idBtnGenerateQR2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdt2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="72dp"
+        android:layout_toStartOf="@+id/idBtnCopyQR2"
+
+        android:background="#FF5722"
+        android:text="Generate" />
+
+    <Button
+        android:id="@+id/idBtnCopyQR2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdt2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="44dp"
+        android:background="#FF5722"
+        android:text="Save Code" />
+
+</RelativeLayout>
