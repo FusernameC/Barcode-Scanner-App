@@ -45,6 +45,7 @@ public class DATAMATRIX extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datamatrix);
+
         qrCodeIV2 = findViewById(R.id.ImageViewId2);
         dataEdt2 = findViewById(R.id.idEdt2);
         generateQrBtn2 = findViewById(R.id.idBtnGenerateQR2);

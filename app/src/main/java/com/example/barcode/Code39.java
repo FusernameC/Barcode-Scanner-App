@@ -38,6 +38,7 @@ public class Code39 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code39);
+
         CodeIV11 = findViewById(R.id.ImageViewId11);
         dataEdt11 = findViewById(R.id.idEdt11);
         generateBtn11 = findViewById(R.id.idBtnGenerate11);

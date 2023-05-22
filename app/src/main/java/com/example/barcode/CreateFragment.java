@@ -33,6 +33,7 @@ public class CreateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_create, container, false);
+
         lv = view.findViewById(R.id.lv);
         MyArrayAdapter myArrayAdapter = new MyArrayAdapter(requireContext(),name,image,content);
         lv.setAdapter(myArrayAdapter);

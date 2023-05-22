@@ -42,6 +42,7 @@ public class Codabar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codabar);
+
         CodeIV12 = findViewById(R.id.ImageViewId12);
         dataEdt12 = findViewById(R.id.idEdt12);
         generateBtn12 = findViewById(R.id.idBtnGenerate12);

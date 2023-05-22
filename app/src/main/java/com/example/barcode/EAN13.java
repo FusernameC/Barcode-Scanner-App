@@ -47,6 +47,7 @@ public class EAN13 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ean13);
+
         CodeIV5 = findViewById(R.id.ImageViewId5);
         dataEdt5 = findViewById(R.id.idEdt5);
         generateBtn5 = findViewById(R.id.idBtnGenerate5);
