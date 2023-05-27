@@ -9,9 +9,9 @@
     <ImageView
         android:id="@+id/ImageViewId1"
         android:layout_width="270dp"
-        android:layout_height="300dp"
+        android:layout_height="270dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:contentDescription="QR Code" />
 
     <EditText
@@ -23,15 +23,52 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
-        android:hint="Enter your info"
+        android:hint="Enter recipient's name"
         android:inputType="text"
         android:textColor="@color/black"/>
+    <EditText
+        android:id="@+id/idEdtphone1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdt1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:hint="Enter your phone"
+        android:inputType="text"
+        android:textColor="@color/black"/>
+    <EditText
+        android:id="@+id/idEdtemail1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtphone1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:hint="Enter your email"
+        android:inputType="text"
+        android:textColor="@color/black"/>
+    <EditText
+        android:id="@+id/idEdtmoney1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtemail1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:hint="Enter your money"
+        android:inputType="text"
+        android:textColor="@color/black"/>
+
 
     <Button
         android:id="@+id/idBtnGenerateQR1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdt1"
+        android:layout_below="@id/idEdtmoney1"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="25dp"
@@ -45,7 +82,7 @@
         android:id="@+id/idBtnCopyQR1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdt1"
+        android:layout_below="@id/idEdtmoney1"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
