@@ -84,7 +84,7 @@ public class PDF417 extends AppCompatActivity {
                 String userInput =  dataEdt3.getText().toString().trim();
                 MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.PDF_417,270,300);
+                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.PDF_417,270,350);
 
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     bitmap = encoder.createBitmap(matrix);
