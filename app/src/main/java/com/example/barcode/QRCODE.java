@@ -77,6 +77,9 @@ public class QRCODE extends AppCompatActivity {
             Toast.makeText(QRCODE.this, "Error saving QR code image", Toast.LENGTH_SHORT).show();
         }
     }
+    public Bitmap resizeImage(Bitmap image, int new_height, int new_width) {
+        return Bitmap.createScaledBitmap(image, new_width, new_height, true);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +115,9 @@ public class QRCODE extends AppCompatActivity {
                         bitmap.setPixel(i, j, matrix.get(i, j) ? 0xFF000000 : 0xFFFFFFFF);
                     }
                 }
-
+                Bitmap logo = resizeImage(BitmapFactory.decodeResource(getResources(), R.drawable.logo_momo), 50, 50);
+                Canvas canvas = new Canvas(bitmap);
+                canvas.drawBitmap(logo, (bitmap.getWidth() - logo.getWidth()) / 2, (bitmap.getHeight() - logo.getHeight()) / 2, null);
 
                 qrCodeIV1.setImageBitmap(bitmap);
             }
