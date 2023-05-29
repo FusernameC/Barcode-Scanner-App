@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,6 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -34,18 +32,21 @@ import java.util.Date;
 
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class PDF417 extends AppCompatActivity {
-
-    private ImageView CodeIV3;
-    private Button generateBtn3;
-    private EditText dataEdt3;
-    private Button copyBtn3;
+public class Codabar extends AppCompatActivity {
+    private ImageView CodeIV12;
+    private Button generateBtn12;
+    private EditText dataEdt12;
+    private Button copyBtn12;
     private static final int STORAGE_PERMISSION_CODE = 100;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
+    private boolean isValidInput(String code) {
+
+        return code.matches("[A-Da-d]+");
+    }
     private void saveImage(Bitmap bitmap) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fileName = "PDF417_" + timeStamp + ".jpg";
+        String fileName = "Codabar_" + timeStamp + ".jpg";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Code/";
         File dir = new File(path);
@@ -61,48 +62,53 @@ public class PDF417 extends AppCompatActivity {
             fos.close();
 
             // Update the gallery to show the newly saved image
-            MediaScannerConnection.scanFile(PDF417.this, new String[]{file.getAbsolutePath()}, null, null);
+            MediaScannerConnection.scanFile(Codabar.this, new String[]{file.getAbsolutePath()}, null, null);
 
-            Toast.makeText(PDF417.this, "PDF417 code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Codabar.this, "Codabar code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(PDF417.this, "Error saving PDF417 image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Codabar.this, "Error saving Codabar image", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdf417);
+        setContentView(R.layout.activity_codabar);
 
-        CodeIV3 = findViewById(R.id.ImageViewId3);
-        dataEdt3 = findViewById(R.id.idEdt3);
-        generateBtn3 = findViewById(R.id.idBtnGenerate3);
-        copyBtn3 = findViewById(R.id.idBtnCopy3);
-        generateBtn3.setOnClickListener(new View.OnClickListener() {
+        CodeIV12 = findViewById(R.id.ImageViewId12);
+        dataEdt12 = findViewById(R.id.idEdt12);
+        generateBtn12 = findViewById(R.id.idBtnGenerate12);
+        copyBtn12 = findViewById(R.id.idBtnCopy12);
+
+        generateBtn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userInput =  dataEdt3.getText().toString().trim();
-                MultiFormatWriter writer = new MultiFormatWriter();
+                String userInput =  dataEdt12.getText().toString().trim();
+                if (isValidInput(userInput)) {
+                    MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.PDF_417,270,350);
+                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.CODABAR,400,170);
 
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     bitmap = encoder.createBitmap(matrix);
-                    CodeIV3.setImageBitmap(bitmap);
+                    CodeIV12.setImageBitmap(bitmap);
 
                     InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    manager.hideSoftInputFromWindow(dataEdt3.getApplicationWindowToken(),0);
+                    manager.hideSoftInputFromWindow(dataEdt12.getApplicationWindowToken(),0);
                 } catch (WriterException e){
                     e.printStackTrace();
+                }
+                }else {
+                    Toast.makeText(Codabar.this, "Invalid Codabar code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
-        copyBtn3.setOnClickListener(new View.OnClickListener() {
+        copyBtn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bitmap == null) {
-                    Toast.makeText(PDF417.this, "No PDF417 code generated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Codabar.this, "No Codabar code generated", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -117,7 +123,6 @@ public class PDF417 extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,6 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.barcode.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -33,79 +32,24 @@ import java.util.Date;
 
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class ITF extends AppCompatActivity {
-    private ImageView CodeIV13;
-    private Button generateBtn13;
-    private EditText dataEdt13;
-    private Button copyBtn13;
+public class Code128 extends AppCompatActivity {
+    private ImageView CodeIV9;
+    private Button generateBtn9;
+    private EditText dataEdt9;
+    private Button copyBtn9;
     private static final int STORAGE_PERMISSION_CODE = 100;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
-    private boolean isValidInput(String code) {
-
-        if (code.length() % 2 != 0 || code.matches("[A-Da-d]+")) {
+    private boolean isValidInput(String input) {
+        if(input.matches("[!@#$%^&*(),.?\":{}|<>]")){
             return false;
         }
-        return code.matches("[0-9]+");
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itf);
-
-        CodeIV13 = findViewById(R.id.ImageViewId13);
-        dataEdt13 = findViewById(R.id.idEdt13);
-        generateBtn13 = findViewById(R.id.idBtnGenerate13);
-        copyBtn13 = findViewById(R.id.idBtnCopy13);
-
-        generateBtn13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userInput =  dataEdt13.getText().toString().trim();
-                if (isValidInput(userInput)) {
-                    MultiFormatWriter writer = new MultiFormatWriter();
-                try {
-                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.CODABAR,400,170);
-
-                    BarcodeEncoder encoder = new BarcodeEncoder();
-                    bitmap = encoder.createBitmap(matrix);
-                    CodeIV13.setImageBitmap(bitmap);
-
-                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    manager.hideSoftInputFromWindow(dataEdt13.getApplicationWindowToken(),0);
-                } catch (WriterException e){
-                    e.printStackTrace();
-                }
-                }else {
-                    Toast.makeText(ITF.this, "Invalid ITF code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        });
-        copyBtn13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bitmap == null) {
-                    Toast.makeText(ITF.this, "No ITF code generated", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, STORAGE_PERMISSION_CODE);
-                    } else {
-                        saveImage(bitmap);
-                    }
-                } else {
-                    saveImage(bitmap);
-                }
-            }
-        });
+        return true;
 
     }
     private void saveImage(Bitmap bitmap) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fileName = "ITF_" + timeStamp + ".jpg";
+        String fileName = "Code128_" + timeStamp + ".jpg";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Code/";
         File dir = new File(path);
@@ -121,12 +65,68 @@ public class ITF extends AppCompatActivity {
             fos.close();
 
             // Update the gallery to show the newly saved image
-            MediaScannerConnection.scanFile(ITF.this, new String[]{file.getAbsolutePath()}, null, null);
+            MediaScannerConnection.scanFile(Code128.this, new String[]{file.getAbsolutePath()}, null, null);
 
-            Toast.makeText(ITF.this, "ITF code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Code128.this, "Code128 code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(ITF.this, "Error saving ITF image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Code128.this, "Error saving Code128 image", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_code128);
+
+        CodeIV9 = findViewById(R.id.ImageViewId9);
+        dataEdt9 = findViewById(R.id.idEdt9);
+        generateBtn9 = findViewById(R.id.idBtnGenerate9);
+        copyBtn9 = findViewById(R.id.idBtnCopy9);
+
+        generateBtn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userInput =  dataEdt9.getText().toString().trim();
+                if (isValidInput(userInput)) {
+                    MultiFormatWriter writer = new MultiFormatWriter();
+                try {
+                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.CODE_128,400,170);
+
+                    BarcodeEncoder encoder = new BarcodeEncoder();
+                    bitmap = encoder.createBitmap(matrix);
+                    CodeIV9.setImageBitmap(bitmap);
+
+                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(dataEdt9.getApplicationWindowToken(),0);
+                } catch (WriterException e){
+                    e.printStackTrace();
+                }
+                }else {
+                    Toast.makeText(Code128.this, "Invalid Code 128 code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+        copyBtn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmap == null) {
+                    Toast.makeText(Code128.this, "No Code128 code generated", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, STORAGE_PERMISSION_CODE);
+                    } else {
+                        saveImage(bitmap);
+                    }
+                } else {
+                    saveImage(bitmap);
+                }
+            }
+        });
+
+
     }
 }

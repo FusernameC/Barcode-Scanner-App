@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.barcode.R;
 
 import java.util.ArrayList;
 import java.util.List;

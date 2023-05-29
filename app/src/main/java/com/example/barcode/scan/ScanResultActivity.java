@@ -1,12 +1,11 @@
-package com.example.barcode;
+package com.example.barcode.scan;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Message;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.barcode.R;
 import com.google.mlkit.vision.barcode.common.Barcode;
 
 public class ScanResultActivity extends AppCompatActivity {
@@ -27,10 +27,9 @@ public class ScanResultActivity extends AppCompatActivity {
 
     String text = "";
     String datetime = "";
-    int type = 0;
+    int typeFormat = 0;
+    int typeType = 0;
     String typeString = "";
-
-    Button viewCode;
     Button copy;
 
     @Override
@@ -40,7 +39,6 @@ public class ScanResultActivity extends AppCompatActivity {
 
         text_textview = findViewById(R.id.text);
         datetime_textview = findViewById(R.id.datetime);
-        viewCode = findViewById(R.id.viewCode);
         copy =  findViewById(R.id.copy);
 
         Bundle extras = getIntent().getExtras();
@@ -48,14 +46,14 @@ public class ScanResultActivity extends AppCompatActivity {
         if (extras != null) {
             text = extras.getString("text");
             datetime = extras.getString("dateTime");
-            type = extras.getInt("type");
+            typeFormat = extras.getInt("typeFormat");
             //The key argument here must match that used in the other activity
         }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        switch (type) {
+        switch (typeFormat) {
             case Barcode.FORMAT_UNKNOWN:
                 typeString = "Unknown";
                 break;
@@ -98,19 +96,16 @@ public class ScanResultActivity extends AppCompatActivity {
             case Barcode.FORMAT_AZTEC:
                 typeString = "Aztec";
                 break;
+
         }
+
+
         actionBar.setTitle(typeString);
 
 
         text_textview.setText(text);
         datetime_textview.setText(datetime);
 
-        viewCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +144,6 @@ public class ScanResultActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.delete_button:
-
-
         }
 
         return super.onOptionsItemSelected(item);

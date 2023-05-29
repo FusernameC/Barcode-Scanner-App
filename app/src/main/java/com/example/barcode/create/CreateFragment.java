@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 
+import com.example.barcode.R;
 
 import java.util.ArrayList;
 

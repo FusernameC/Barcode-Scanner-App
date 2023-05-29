@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EAN13">
+    tools:context=".create.EAN13">
     <ImageView
         android:id="@+id/ImageViewId5"
         android:layout_width="400dp"

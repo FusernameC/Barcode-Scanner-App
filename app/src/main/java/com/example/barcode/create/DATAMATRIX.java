@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,6 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.barcode.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -33,21 +32,24 @@ import java.util.Date;
 
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class Codabar extends AppCompatActivity {
-    private ImageView CodeIV12;
-    private Button generateBtn12;
-    private EditText dataEdt12;
-    private Button copyBtn12;
+public class DATAMATRIX extends AppCompatActivity {
+    private ImageView qrCodeIV2;
+    private Button generateQrBtn2;
+    private EditText dataEdt2;
+    private Button copyQrBtn2;
     private static final int STORAGE_PERMISSION_CODE = 100;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
-    private boolean isValidInput(String code) {
+    private boolean isValidInput(String input) {
+        if(input.matches("[!@#$%^&*(),.?\":{}|<>]")){
+            return false;
+        }
+        return true;
 
-        return code.matches("[A-Da-d]+");
     }
     private void saveImage(Bitmap bitmap) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fileName = "Codabar_" + timeStamp + ".jpg";
+        String fileName = "DATAMATRIX_" + timeStamp + ".jpg";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Code/";
         File dir = new File(path);
@@ -63,53 +65,53 @@ public class Codabar extends AppCompatActivity {
             fos.close();
 
             // Update the gallery to show the newly saved image
-            MediaScannerConnection.scanFile(Codabar.this, new String[]{file.getAbsolutePath()}, null, null);
+            MediaScannerConnection.scanFile(DATAMATRIX.this, new String[]{file.getAbsolutePath()}, null, null);
 
-            Toast.makeText(Codabar.this, "Codabar code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(DATAMATRIX.this, "DATAMATRIX code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(Codabar.this, "Error saving Codabar image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DATAMATRIX.this, "Error saving DATAMATRIX image", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_codabar);
+        setContentView(R.layout.activity_datamatrix);
 
-        CodeIV12 = findViewById(R.id.ImageViewId12);
-        dataEdt12 = findViewById(R.id.idEdt12);
-        generateBtn12 = findViewById(R.id.idBtnGenerate12);
-        copyBtn12 = findViewById(R.id.idBtnCopy12);
+        qrCodeIV2 = findViewById(R.id.ImageViewId2);
+        dataEdt2 = findViewById(R.id.idEdt2);
+        generateQrBtn2 = findViewById(R.id.idBtnGenerateQR2);
+        copyQrBtn2 = findViewById(R.id.idBtnCopyQR2);
 
-        generateBtn12.setOnClickListener(new View.OnClickListener() {
+        generateQrBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userInput =  dataEdt12.getText().toString().trim();
+                String userInput =  dataEdt2.getText().toString().trim();
                 if (isValidInput(userInput)) {
                     MultiFormatWriter writer = new MultiFormatWriter();
-                try {
-                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.CODABAR,400,170);
+                    try {
+                        BitMatrix matrix = writer.encode(userInput, BarcodeFormat.DATA_MATRIX, 270, 300);
 
-                    BarcodeEncoder encoder = new BarcodeEncoder();
-                    bitmap = encoder.createBitmap(matrix);
-                    CodeIV12.setImageBitmap(bitmap);
+                        BarcodeEncoder encoder = new BarcodeEncoder();
+                        bitmap = encoder.createBitmap(matrix);
+                        qrCodeIV2.setImageBitmap(bitmap);
 
-                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    manager.hideSoftInputFromWindow(dataEdt12.getApplicationWindowToken(),0);
-                } catch (WriterException e){
-                    e.printStackTrace();
-                }
+                        InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.hideSoftInputFromWindow(dataEdt2.getApplicationWindowToken(), 0);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
                 }else {
-                    Toast.makeText(Codabar.this, "Invalid Codabar code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DATAMATRIX.this, "Invalid Data Matrix code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
-        copyBtn12.setOnClickListener(new View.OnClickListener() {
+        copyQrBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bitmap == null) {
-                    Toast.makeText(Codabar.this, "No Codabar code generated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DATAMATRIX.this, "No DATAMATRIX code generated", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

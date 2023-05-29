@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,6 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.barcode.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -33,24 +32,26 @@ import java.util.Date;
 
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class DATAMATRIX extends AppCompatActivity {
-    private ImageView qrCodeIV2;
-    private Button generateQrBtn2;
-    private EditText dataEdt2;
-    private Button copyQrBtn2;
+public class EAN13 extends AppCompatActivity {
+    private ImageView CodeIV5;
+    private Button generateBtn5;
+    private EditText dataEdt5;
+    private Button copyBtn5;
     private static final int STORAGE_PERMISSION_CODE = 100;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
-    private boolean isValidInput(String input) {
-        if(input.matches("[!@#$%^&*(),.?\":{}|<>]")){
+    private File code;
+
+    private boolean isValidEAN13(String code) {
+
+        if (code.length() != 13 || code.matches("[0-13]+") || code.matches("[A-Da-d]+")) {
             return false;
         }
         return true;
-
     }
     private void saveImage(Bitmap bitmap) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fileName = "DATAMATRIX_" + timeStamp + ".jpg";
+        String fileName = "EAN13_" + timeStamp + ".jpg";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Code/";
         File dir = new File(path);
@@ -66,53 +67,56 @@ public class DATAMATRIX extends AppCompatActivity {
             fos.close();
 
             // Update the gallery to show the newly saved image
-            MediaScannerConnection.scanFile(DATAMATRIX.this, new String[]{file.getAbsolutePath()}, null, null);
+            MediaScannerConnection.scanFile(EAN13.this, new String[]{file.getAbsolutePath()}, null, null);
 
-            Toast.makeText(DATAMATRIX.this, "DATAMATRIX code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(EAN13.this, "EAN13 code image saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(DATAMATRIX.this, "Error saving DATAMATRIX image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EAN13.this, "Error saving EAN13 image", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datamatrix);
+        setContentView(R.layout.activity_ean13);
 
-        qrCodeIV2 = findViewById(R.id.ImageViewId2);
-        dataEdt2 = findViewById(R.id.idEdt2);
-        generateQrBtn2 = findViewById(R.id.idBtnGenerateQR2);
-        copyQrBtn2 = findViewById(R.id.idBtnCopyQR2);
+        CodeIV5 = findViewById(R.id.ImageViewId5);
+        dataEdt5 = findViewById(R.id.idEdt5);
+        generateBtn5 = findViewById(R.id.idBtnGenerate5);
+        copyBtn5 = findViewById(R.id.idBtnCopy5);
 
-        generateQrBtn2.setOnClickListener(new View.OnClickListener() {
+
+        generateBtn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userInput =  dataEdt2.getText().toString().trim();
-                if (isValidInput(userInput)) {
-                    MultiFormatWriter writer = new MultiFormatWriter();
-                    try {
-                        BitMatrix matrix = writer.encode(userInput, BarcodeFormat.DATA_MATRIX, 270, 300);
+                String userInput =  dataEdt5.getText().toString().trim();
 
-                        BarcodeEncoder encoder = new BarcodeEncoder();
-                        bitmap = encoder.createBitmap(matrix);
-                        qrCodeIV2.setImageBitmap(bitmap);
+               if(isValidEAN13(userInput)) {
+                   MultiFormatWriter writer = new MultiFormatWriter();
+                try {
+                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.EAN_13,400,170);
+                    BarcodeEncoder encoder = new BarcodeEncoder();
+                    bitmap = encoder.createBitmap(matrix);
+                    CodeIV5.setImageBitmap(bitmap);
 
-                        InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        manager.hideSoftInputFromWindow(dataEdt2.getApplicationWindowToken(), 0);
-                    } catch (WriterException e) {
-                        e.printStackTrace();
-                    }
-                }else {
-                    Toast.makeText(DATAMATRIX.this, "Invalid Data Matrix code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
+                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(dataEdt5.getApplicationWindowToken(),0);
+                } catch (WriterException e){
+                    e.printStackTrace();
                 }
+               } else {
+                   Toast.makeText(EAN13.this, "Invalid EAN-13 code. Please enter a valid code.", Toast.LENGTH_SHORT).show();
+               }
             }
 
         });
-        copyQrBtn2.setOnClickListener(new View.OnClickListener() {
+
+
+        copyBtn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bitmap == null) {
-                    Toast.makeText(DATAMATRIX.this, "No DATAMATRIX code generated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EAN13.this, "No EAN13 code generated", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -127,6 +131,7 @@ public class DATAMATRIX extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 }
