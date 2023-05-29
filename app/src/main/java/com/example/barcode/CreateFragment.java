@@ -20,10 +20,10 @@ public class CreateFragment extends Fragment {
     public CreateFragment() {
         // Required empty public constructor
     }
-    int image[]={R.drawable.qrcode,R.drawable.datamatrix,R.drawable.barcode,R.drawable.qrcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode  };
+    int image[]={R.drawable.qrcode,R.drawable.qrcode,R.drawable.datamatrix,R.drawable.barcode,R.drawable.qrcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode,R.drawable.barcode  };
 
-    String name[] ={"QR Code", "Data Matrix", "PDF 417", "Aztec","EAN13", "EAN 8", "UPC E", "UPC A","Code 128","Code 93", "Code 39", "Codabar", "ITF"};
-    String content [] ={"text", "text without special characters", "text", "text without special characters", "12digits + 1 checksum digit", "8 digits","7 digits + 1 checksum digit", "11 digits + 1 checksum digit",
+    String name[] ={"QR Code","QR Code Momo", "Data Matrix", "PDF 417", "Aztec","EAN13", "EAN 8", "UPC E", "UPC A","Code 128","Code 93", "Code 39", "Codabar", "ITF"};
+    String content [] ={"text","text", "text without special characters", "text", "text without special characters", "12digits + 1 checksum digit", "8 digits","7 digits + 1 checksum digit", "11 digits + 1 checksum digit",
     "text without special characters", "text in upper case without special characters","text in upper case without special characters", "digits", " even number of digits"};
     ArrayList<Createlist> mylist;
     MyArrayAdapter myadapter;
@@ -48,60 +48,65 @@ public class CreateFragment extends Fragment {
                 }
                 if(position == 1){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), DATAMATRIX.class);
+                    intent.setClass(requireContext(),QRCODEMOMMO.class);
                     startActivity(intent);
                 }
                 if(position == 2){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), PDF417.class);
+                    intent.setClass(requireContext(), DATAMATRIX.class);
                     startActivity(intent);
                 }
                 if(position == 3){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), AZTEC.class);
+                    intent.setClass(requireContext(), PDF417.class);
                     startActivity(intent);
                 }
                 if(position == 4){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), EAN13.class);
+                    intent.setClass(requireContext(), AZTEC.class);
                     startActivity(intent);
                 }
                 if(position == 5){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), EAN8.class);
+                    intent.setClass(requireContext(), EAN13.class);
                     startActivity(intent);
                 }
                 if(position == 6){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), UPCE.class);
+                    intent.setClass(requireContext(), EAN8.class);
                     startActivity(intent);
                 }
                 if(position == 7){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), UPCA.class);
+                    intent.setClass(requireContext(), UPCE.class);
                     startActivity(intent);
                 }
                 if(position == 8){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), Code128.class);
+                    intent.setClass(requireContext(), UPCA.class);
                     startActivity(intent);
                 }
                 if(position == 9){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), Code93.class);
+                    intent.setClass(requireContext(), Code128.class);
                     startActivity(intent);
                 }
                 if(position == 10){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), Code39.class);
+                    intent.setClass(requireContext(), Code93.class);
                     startActivity(intent);
                 }
                 if(position == 11){
                     Intent intent = new Intent();
-                    intent.setClass(requireContext(), Codabar.class);
+                    intent.setClass(requireContext(), Code39.class);
                     startActivity(intent);
                 }
                 if(position == 12){
+                    Intent intent = new Intent();
+                    intent.setClass(requireContext(), Codabar.class);
+                    startActivity(intent);
+                }
+                if(position == 13){
                     Intent intent = new Intent();
                     intent.setClass(requireContext(), ITF.class);
                     startActivity(intent);
