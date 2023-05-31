@@ -27,7 +27,7 @@ public class ScanResultActivity extends AppCompatActivity {
 
     String text = "";
     String datetime = "";
-    int typeFormat = 0;
+    int type = 0;
     int typeType = 0;
     String typeString = "";
     Button copy;
@@ -46,14 +46,14 @@ public class ScanResultActivity extends AppCompatActivity {
         if (extras != null) {
             text = extras.getString("text");
             datetime = extras.getString("dateTime");
-            typeFormat = extras.getInt("typeFormat");
+            type = extras.getInt("type");
             //The key argument here must match that used in the other activity
         }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        switch (typeFormat) {
+        switch (type) {
             case Barcode.FORMAT_UNKNOWN:
                 typeString = "Unknown";
                 break;

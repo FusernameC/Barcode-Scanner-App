@@ -148,20 +148,19 @@ public class ScanFragment extends Fragment {
             isDetected = true;
             for(Barcode item: Barcodes)
             {
-                createResult(item.getRawValue(), item.getFormat(), item.getValueType());
+                createResult(item.getRawValue(), item.getFormat());
             }
         }
 
     }
 
-    private void createResult(String text, int typeFormat, int typeType) {
+    private void createResult(String text, int type) {
         LocalDateTime ldt = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm", Locale.ENGLISH);
         String dateTime = format.format(ldt);
         Intent intent = new Intent(getActivity(), ScanResultActivity.class);
         intent.putExtra("text", text)
-                .putExtra("typeFormat", typeFormat)
-                .putExtra("typeType", typeType)
+                .putExtra("type", type)
                 .putExtra("dateTime", dateTime);
         startActivityForResult(intent, SCAN_RESULT);
     }
