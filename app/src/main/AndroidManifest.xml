@@ -25,7 +25,7 @@
         android:theme="@style/Theme.Barcode"
         tools:targetApi="31">
         <activity
-            android:name=".QRCODEMOMMO"
+            android:name=".create.QRCODEMOMMO"
             android:exported="false" />
         <activity
             android:name=".scan.activity_scan_gallery"
