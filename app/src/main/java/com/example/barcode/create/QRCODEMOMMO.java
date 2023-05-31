@@ -1,5 +1,6 @@
 package com.example.barcode.create;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -11,6 +12,7 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -130,6 +132,18 @@ public class QRCODEMOMMO extends AppCompatActivity {
                 }
             }
         });
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home )
+        {
+            finish();
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
