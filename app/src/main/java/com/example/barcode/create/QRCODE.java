@@ -37,7 +37,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
 public class QRCODE extends AppCompatActivity {
     private ImageView qrCodeIV1;
     private Button generateQrBtn1;
-    private EditText dataEdt1, dataEdtphone1,dataEdtemail, dataEdtmoney;
+    private EditText dataEdt1;
     private Button copyQrBtn1;
     private static final int STORAGE_PERMISSION_CODE = 100;
     Bitmap bitmap;
@@ -79,41 +79,29 @@ public class QRCODE extends AppCompatActivity {
 
         qrCodeIV1 = findViewById(R.id.ImageViewId1);
         dataEdt1 = findViewById(R.id.idEdt1);
-        dataEdtphone1 = findViewById(R.id.idEdtphone1);
-        dataEdtemail = findViewById(R.id.idEdtemail1);
-        dataEdtmoney = findViewById(R.id.idEdtmoney1);
         generateQrBtn1 = findViewById(R.id.idBtnGenerateQR1);
         copyQrBtn1 = findViewById(R.id.idBtnCopyQR1);
 
         generateQrBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String qrcode_text = "2|99|" + dataEdtphone1.getText().toString().trim() + "|" +
-                        dataEdt1.getText().toString().trim() + "|" + dataEdtemail.getText().toString().trim() + "|0|0|" +
-                        dataEdtmoney.getText().toString().trim();
+                String userInput = dataEdt1.getText().toString().trim();
 
-                QRCodeWriter barcodeWriter = new QRCodeWriter();
-                com.google.zxing.common.BitMatrix matrix;
+                MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    matrix = barcodeWriter.encode(qrcode_text, BarcodeFormat.QR_CODE, 270, 270);
+                    BitMatrix matrix = writer.encode(userInput, BarcodeFormat.QR_CODE, 270, 300);
+
+                    BarcodeEncoder encoder = new BarcodeEncoder();
+                    bitmap = encoder.createBitmap(matrix);
+                    qrCodeIV1.setImageBitmap(bitmap);
+
+                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(dataEdt1.getApplicationWindowToken(), 0);
                 } catch (WriterException e) {
                     e.printStackTrace();
-                    return;
                 }
 
-                 bitmap = Bitmap.createBitmap(270, 270, Bitmap.Config.ARGB_8888);
-                for (int i = 0; i < 270; i++) {
-                    for (int j = 0; j < 270; j++) {
-                        bitmap.setPixel(i, j, matrix.get(i, j) ? 0xFF000000 : 0xFFFFFFFF);
-                    }
-                }
-                Bitmap logo = resizeImage(BitmapFactory.decodeResource(getResources(), R.drawable.logo_momo), 50, 50);
-                Canvas canvas = new Canvas(bitmap);
-                canvas.drawBitmap(logo, (bitmap.getWidth() - logo.getWidth()) / 2, (bitmap.getHeight() - logo.getHeight()) / 2, null);
-
-                qrCodeIV1.setImageBitmap(bitmap);
             }
-
         });
 
         copyQrBtn1.setOnClickListener(new View.OnClickListener() {
