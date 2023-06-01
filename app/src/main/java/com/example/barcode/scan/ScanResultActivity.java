@@ -60,6 +60,9 @@ public class ScanResultActivity extends AppCompatActivity {
             case Barcode.FORMAT_ALL_FORMATS:
                 typeString = "All";
                 break;
+            case Barcode.FORMAT_CODE_128:
+                typeString = "Code 128";
+                break;
             case Barcode.FORMAT_CODE_39:
                 typeString = "Code 39";
                 break;
