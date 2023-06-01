@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -79,6 +80,14 @@ public class Codabar extends AppCompatActivity {
         dataEdt12 = findViewById(R.id.idEdt12);
         generateBtn12 = findViewById(R.id.idBtnGenerate12);
         copyBtn12 = findViewById(R.id.idBtnCopy12);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt12.setText(fileContent);
+            }
+        }
 
         generateBtn12.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -81,6 +82,14 @@ public class EAN8 extends AppCompatActivity {
         dataEdt6 = findViewById(R.id.idEdt6);
         generateBtn6 = findViewById(R.id.idBtnGenerate6);
         copyBtn6 = findViewById(R.id.idBtnCopy6);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt6.setText(fileContent);
+            }
+        }
 
         generateBtn6.setOnClickListener(new View.OnClickListener() {
             @Override

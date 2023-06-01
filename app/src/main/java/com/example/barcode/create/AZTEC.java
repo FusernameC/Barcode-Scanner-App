@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -85,6 +86,14 @@ public class AZTEC extends AppCompatActivity {
         dataEdt4 = findViewById(R.id.idEdt4);
         generateBtn4 = findViewById(R.id.idBtnGenerate4);
         copyBtn4 = findViewById(R.id.idBtnCopy4);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt4.setText(fileContent);
+            }
+        }
 
 
         generateBtn4.setOnClickListener(new View.OnClickListener() {

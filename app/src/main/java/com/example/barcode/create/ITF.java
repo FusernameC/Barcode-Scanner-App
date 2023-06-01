@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -56,6 +57,14 @@ public class ITF extends AppCompatActivity {
         dataEdt13 = findViewById(R.id.idEdt13);
         generateBtn13 = findViewById(R.id.idBtnGenerate13);
         copyBtn13 = findViewById(R.id.idBtnCopy13);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt13.setText(fileContent);
+            }
+        }
 
         generateBtn13.setOnClickListener(new View.OnClickListener() {
             @Override

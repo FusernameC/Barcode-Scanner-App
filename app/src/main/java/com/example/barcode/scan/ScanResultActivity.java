@@ -68,25 +68,25 @@ public class ScanResultActivity extends AppCompatActivity {
                 typeString = "All";
                 break;
             case Barcode.FORMAT_CODE_128:
-                typeString = "Code 128";
+                typeString = "Code128";
                 break;
             case Barcode.FORMAT_CODE_39:
-                typeString = "Code 39";
+                typeString = "Code39";
                 break;
             case Barcode.FORMAT_CODE_93:
-                typeString = "Code 93";
+                typeString = "Code93";
                 break;
             case Barcode.FORMAT_CODABAR:
                 typeString = "Codabar";
                 break;
             case Barcode.FORMAT_DATA_MATRIX:
-                typeString = "Data Matrix";
+                typeString = "DATAMATRIX";
                 break;
             case Barcode.FORMAT_EAN_13:
-                typeString = "EAN-13";
+                typeString = "EAN13";
                 break;
             case Barcode.FORMAT_EAN_8:
-                typeString = "EAN-8";
+                typeString = "EAN8";
                 break;
             case Barcode.FORMAT_ITF:
                 typeString = "ITF";
@@ -95,18 +95,17 @@ public class ScanResultActivity extends AppCompatActivity {
                 typeString = "QR Code";
                 break;
             case Barcode.FORMAT_UPC_A:
-                typeString = "UPC-A";
+                typeString = "UPCA";
                 break;
             case Barcode.FORMAT_UPC_E:
-                typeString = "UPC-E";
+                typeString = "UPCE";
                 break;
             case Barcode.FORMAT_PDF417:
                 typeString = "PDF417";
                 break;
             case Barcode.FORMAT_AZTEC:
-                typeString = "Aztec";
+                typeString = "AZTEC";
                 break;
-
         }
 
 

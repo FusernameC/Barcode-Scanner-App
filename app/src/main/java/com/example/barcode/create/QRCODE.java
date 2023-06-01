@@ -3,6 +3,7 @@ package com.example.barcode.create;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -83,6 +85,14 @@ public class QRCODE extends AppCompatActivity {
         dataEdt1 = findViewById(R.id.idEdt1);
         generateQrBtn1 = findViewById(R.id.idBtnGenerateQR1);
         copyQrBtn1 = findViewById(R.id.idBtnCopyQR1);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt1.setText(fileContent);
+            }
+        }
 
         generateQrBtn1.setOnClickListener(new View.OnClickListener() {
             @Override

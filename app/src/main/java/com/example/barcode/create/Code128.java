@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -82,6 +83,14 @@ public class Code128 extends AppCompatActivity {
         dataEdt9 = findViewById(R.id.idEdt9);
         generateBtn9 = findViewById(R.id.idBtnGenerate9);
         copyBtn9 = findViewById(R.id.idBtnCopy9);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt9.setText(fileContent);
+            }
+        }
 
         generateBtn9.setOnClickListener(new View.OnClickListener() {
             @Override

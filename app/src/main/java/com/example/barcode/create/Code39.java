@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -75,6 +76,14 @@ public class Code39 extends AppCompatActivity {
         dataEdt11 = findViewById(R.id.idEdt11);
         generateBtn11 = findViewById(R.id.idBtnGenerate11);
         copyBtn11 = findViewById(R.id.idBtnCopy11);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt11.setText(fileContent);
+            }
+        }
 
         generateBtn11.setOnClickListener(new View.OnClickListener() {
             @Override
