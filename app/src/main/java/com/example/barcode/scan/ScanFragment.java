@@ -105,6 +105,15 @@ public class ScanFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        if(cameraView != null){
+            cameraView.close();
+            cameraView.destroy();
+        }
+        super.onDestroy();
+    }
+
     private void setupCamera(View view) {
         cameraView = view.findViewById (R.id.camera_view);
         cameraView.setLifecycleOwner(getActivity());
