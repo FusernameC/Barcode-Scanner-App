@@ -37,7 +37,6 @@ public class ScanResultActivity extends AppCompatActivity {
     String typeString = "";
     Button copy;
 
-    Button save;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class ScanResultActivity extends AppCompatActivity {
         text_textview = findViewById(R.id.text);
         datetime_textview = findViewById(R.id.datetime);
         copy =  findViewById(R.id.copy);
-        save = findViewById(R.id.save_button);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -56,6 +54,8 @@ public class ScanResultActivity extends AppCompatActivity {
             type = extras.getInt("type");
             //The key argument here must match that used in the other activity
         }
+
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -115,7 +115,7 @@ public class ScanResultActivity extends AppCompatActivity {
         text_textview.setText(text);
         datetime_textview.setText(datetime);
 
-
+        saveDataToExternalStorage(text, datetime, typeString);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,12 +126,6 @@ public class ScanResultActivity extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveDataToExternalStorage(text, datetime, typeString);
-            }
-        });
 
     }
 
