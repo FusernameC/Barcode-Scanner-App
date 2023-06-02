@@ -106,12 +106,12 @@ public class ScanFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        if(cameraView != null){
+    public void onDestroyView() {
+        if (cameraView != null) {
             cameraView.close();
             cameraView.destroy();
         }
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     private void setupCamera(View view) {

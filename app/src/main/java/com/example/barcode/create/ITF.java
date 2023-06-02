@@ -75,7 +75,7 @@ public class ITF extends AppCompatActivity {
                 if (isValidInput(userInput)) {
                     MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.CODABAR,400,170);
+                    BitMatrix matrix =writer.encode(userInput, BarcodeFormat.ITF,400,170);
 
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     bitmap = encoder.createBitmap(matrix);
