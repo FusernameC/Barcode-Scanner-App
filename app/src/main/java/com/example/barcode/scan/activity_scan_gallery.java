@@ -10,10 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barcode.R;
-import com.example.barcode.scan.ScanResultActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
@@ -35,7 +32,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 public class activity_scan_gallery extends AppCompatActivity {
 
@@ -134,7 +130,7 @@ public class activity_scan_gallery extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+        getMenuInflater().inflate(R.menu.menu_action_bar_ok, menu);
         for(int i = 0; i < menu.size(); i++){
             Drawable drawable = menu.getItem(i).getIcon();
             if(drawable != null) {
@@ -142,8 +138,6 @@ public class activity_scan_gallery extends AppCompatActivity {
                 drawable.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
             }
         }
-        MenuItem item = menu.findItem(R.id.delete_button);
-        item.setVisible(false);
         if (isDetected) {
             menu.findItem(R.id.ok_button).setVisible(true);
         } else {
