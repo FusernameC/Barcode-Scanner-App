@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -57,6 +58,14 @@ public class UPCA extends AppCompatActivity {
         dataEdt8 = findViewById(R.id.idEdt8);
         generateBtn8 = findViewById(R.id.idBtnGenerate8);
         copyBtn8 = findViewById(R.id.idBtnCopy8);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt8.setText(fileContent);
+            }
+        }
 
         generateBtn8.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Environment;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -32,6 +37,8 @@ public class ScanResultActivity extends AppCompatActivity {
     String typeString = "";
     Button copy;
 
+    Button save;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +47,7 @@ public class ScanResultActivity extends AppCompatActivity {
         text_textview = findViewById(R.id.text);
         datetime_textview = findViewById(R.id.datetime);
         copy =  findViewById(R.id.copy);
-
+        save = findViewById(R.id.save_button);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -61,25 +68,25 @@ public class ScanResultActivity extends AppCompatActivity {
                 typeString = "All";
                 break;
             case Barcode.FORMAT_CODE_128:
-                typeString = "Code 128";
+                typeString = "Code128";
                 break;
             case Barcode.FORMAT_CODE_39:
-                typeString = "Code 39";
+                typeString = "Code39";
                 break;
             case Barcode.FORMAT_CODE_93:
-                typeString = "Code 93";
+                typeString = "Code93";
                 break;
             case Barcode.FORMAT_CODABAR:
                 typeString = "Codabar";
                 break;
             case Barcode.FORMAT_DATA_MATRIX:
-                typeString = "Data Matrix";
+                typeString = "DATAMATRIX";
                 break;
             case Barcode.FORMAT_EAN_13:
-                typeString = "EAN-13";
+                typeString = "EAN13";
                 break;
             case Barcode.FORMAT_EAN_8:
-                typeString = "EAN-8";
+                typeString = "EAN8";
                 break;
             case Barcode.FORMAT_ITF:
                 typeString = "ITF";
@@ -88,18 +95,17 @@ public class ScanResultActivity extends AppCompatActivity {
                 typeString = "QR Code";
                 break;
             case Barcode.FORMAT_UPC_A:
-                typeString = "UPC-A";
+                typeString = "UPCA";
                 break;
             case Barcode.FORMAT_UPC_E:
-                typeString = "UPC-E";
+                typeString = "UPCE";
                 break;
             case Barcode.FORMAT_PDF417:
                 typeString = "PDF417";
                 break;
             case Barcode.FORMAT_AZTEC:
-                typeString = "Aztec";
+                typeString = "AZTEC";
                 break;
-
         }
 
 
@@ -120,6 +126,12 @@ public class ScanResultActivity extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveDataToExternalStorage(text, datetime, typeString);
+            }
+        });
 
     }
 
@@ -151,4 +163,24 @@ public class ScanResultActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void saveDataToExternalStorage(String text, String datetime, String typeString) {
+        String filename = "barcode_data_" + System.currentTimeMillis() + ".txt";
+        String data = "Text: " + text + "\nDatetime: " + datetime + "\nType: " + typeString + "\n\n";
+
+        File file = new File(getExternalFilesDir(null), filename);
+
+        try {
+            FileWriter writer = new FileWriter(file, true);
+            writer.append(data);
+            writer.flush();
+            writer.close();
+            Toast.makeText(ScanResultActivity.this, "Data saved to external storage", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(ScanResultActivity.this, "Error saving data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -84,6 +85,14 @@ public class DATAMATRIX extends AppCompatActivity {
         dataEdt2 = findViewById(R.id.idEdt2);
         generateQrBtn2 = findViewById(R.id.idBtnGenerateQR2);
         copyQrBtn2 = findViewById(R.id.idBtnCopyQR2);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt2.setText(fileContent);
+            }
+        }
 
         generateQrBtn2.setOnClickListener(new View.OnClickListener() {
             @Override

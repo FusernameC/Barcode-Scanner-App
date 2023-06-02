@@ -52,7 +52,12 @@
         <activity android:name=".create.AZTEC" />
         <activity android:name=".create.PDF417" />
         <activity android:name=".create.DATAMATRIX" />
-        <activity android:name=".create.QRCODE" />
+        <activity
+            android:name="com.example.barcode.create.QRCODE"
+            android:label="QR Code Generator">
+        </activity>
+
+
     </application>
 
 </manifest>

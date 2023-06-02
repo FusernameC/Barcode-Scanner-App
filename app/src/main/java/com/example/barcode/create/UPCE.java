@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -57,6 +58,14 @@ public class UPCE extends AppCompatActivity {
         dataEdt7 = findViewById(R.id.idEdt7);
         generateBtn7 = findViewById(R.id.idBtnGenerate7);
         copyBtn7 = findViewById(R.id.idBtnCopy7);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt7.setText(fileContent);
+            }
+        }
 
         generateBtn7.setOnClickListener(new View.OnClickListener() {
             @Override

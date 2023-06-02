@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -78,6 +79,14 @@ public class PDF417 extends AppCompatActivity {
         dataEdt3 = findViewById(R.id.idEdt3);
         generateBtn3 = findViewById(R.id.idBtnGenerate3);
         copyBtn3 = findViewById(R.id.idBtnCopy3);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fileContent = intent.getStringExtra("text");
+            if (fileContent != null) {
+                dataEdt3.setText(fileContent);
+            }
+        }
         generateBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
