@@ -1,5 +1,6 @@
 package com.example.barcode.create;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -83,7 +85,8 @@ public class QRCODE extends AppCompatActivity {
         dataEdt1 = findViewById(R.id.idEdt1);
         generateQrBtn1 = findViewById(R.id.idBtnGenerateQR1);
         copyQrBtn1 = findViewById(R.id.idBtnCopyQR1);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         generateQrBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,73 +130,15 @@ public class QRCODE extends AppCompatActivity {
         });
 
 
-        /*copyQrBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(dataEdt1.getText().toString()) ||
-                        TextUtils.isEmpty(dataEdtphone1.getText().toString()) ||
-                        TextUtils.isEmpty(dataEdtemail.getText().toString()) ||
-                        TextUtils.isEmpty(dataEdtmoney.getText().toString())) {
-                    Toast.makeText(QRCODE.this, "No text to copy", Toast.LENGTH_SHORT).show();
-                } else {
-                    bitmap = qrCodeIV1.getDrawingCache();
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-                    File filename;
+        if (item.getItemId() == android.R.id.home )
+        {
+                finish();
 
-                        try {
-                            String path = Environment.getExternalStorageDirectory().toString();
-                            //String path = requireActivity().getExternalFilesDir(null).getAbsolutePath();
+        }
 
-                            new File(path + "/folder/subfolder").mkdirs();
-                            filename = new File(path + "/folder/subfolder/image.jpg");
-                            FileOutputStream out = new FileOutputStream(filename);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                            out.flush();
-                            out.close();
-
-                            ContentValues values = new ContentValues();
-                            values.put(MediaStore.Images.Media.DATA, filename.getAbsolutePath());
-                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                            getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-                            Toast.makeText(QRCODE.this, "File is Saved in " + filename.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                }
-            }
-        });*/
-
-       /* copyQrBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(dataEdt1.getText().toString()) ||TextUtils.isEmpty(dataEdtphone1.getText().toString()) || TextUtils.isEmpty(dataEdtemail.getText().toString())|| TextUtils.isEmpty(dataEdtmoney.getText().toString())  ) {
-                    Toast.makeText(QRCODE.this, "No text to copy", Toast.LENGTH_SHORT).show();
-                } else {
-                    File filename;
-                    try {
-                        String path = Environment.getExternalStorageDirectory().toString();
-                       // String path = requireActivity().getExternalFilesDir(null).getAbsolutePath();
-
-                        new File(path + "/folder/subfolder").mkdirs();
-                        filename = new File(path + "/folder/subfolder/image.jpg");
-
-                        FileOutputStream out = new FileOutputStream(filename);
-
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                        out.flush();
-                        out.close();
-                        MediaStore.Images.Media.insertImage(getContentResolver(), filename.getAbsolutePath(), filename.getName(), filename.getName());
-
-                        Toast.makeText(QRCODE.this, "File is Saved in  " + filename, Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }
-        });*/
+        return super.onOptionsItemSelected(item);
     }
 }
