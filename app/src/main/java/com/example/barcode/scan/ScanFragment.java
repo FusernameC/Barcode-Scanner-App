@@ -105,33 +105,10 @@ public class ScanFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onPause() {
-        if(cameraView != null){
-            cameraView.close();
-        }
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        if(cameraView != null){
-            cameraView.open();
-        }
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroyView() {
-        if(cameraView != null){
-            cameraView.close();
-            cameraView.destroy();
-        }
-        super.onDestroyView();
-    }
 
     private void setupCamera(View view) {
         cameraView = view.findViewById (R.id.camera_view);
+        cameraView.setLifecycleOwner(getViewLifecycleOwner());
         if(cameraView != null){
             cameraView.open();
         }
@@ -176,6 +153,7 @@ public class ScanFragment extends Fragment {
             for(Barcode item: Barcodes)
             {
                 createResult(item.getRawValue(), item.getFormat());
+                break;
             }
         }
 
