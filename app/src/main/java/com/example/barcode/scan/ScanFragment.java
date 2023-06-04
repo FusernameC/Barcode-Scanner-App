@@ -106,6 +106,22 @@ public class ScanFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        if(cameraView != null){
+            cameraView.close();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        if(cameraView != null){
+            cameraView.open();
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         if(cameraView != null){
             cameraView.close();
